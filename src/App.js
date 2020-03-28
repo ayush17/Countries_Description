@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Home from './components/Home';
+import CountryDetails from './components/countryDetails'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -14,7 +15,7 @@ class App extends Component {
        <Router>
        <Switch>
          <Route path="/" exact component={Home} />
-         {/* <Route path="/board/:id" exact component={Lists} /> */}
+         <Route path="/country/:name" exact component={CountryDetails} />
        </Switch>
      </Router>
     );
