@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Country from './Country';
 import Header from './Header';
 import Searchfilter from './Searchfilter';
+import {ThemeContext,themes} from './themeContext'
+import { StyleProvider,MyStyleContext} from './StyleProvider'
 class Home extends Component {
-    state = { countries:[],background:"white",cardsBackground:"#fafafa",textColor:"black",borderStyle:"outset",borderColor:"white",boxShadow:"0px 0px 7px #f0f0eb" ,headerBackground:"white"}
+    state = { countries:[],theme:themes.light}
    
     componentDidMount=()=> {
 
@@ -18,13 +20,15 @@ class Home extends Component {
        
       }
       countries =()=>{
-        return this.state.countries.length===0?<h1>Loading...</h1>:this.state.countries.map(country=>(<Country key={country.capital} countryDetails={country} background={this.state.headerBackground} textColor={this.state.textColor} borderStyle={this.state.borderStyle} borderColor={this.state.borderColor} boxShadow={this.state.boxShadow} />));
+        return this.state.countries.length===0?<h1>Loading...</h1>:this.state.countries.map(country=>(<Country key={country.capital} countryDetails={country} />));
       }
       changeMode =(mode)=>{
-          if(mode==="Light Mode")
-      this.setState({background:"black",textColor:"white",borderStyle:"outset",borderColor:"white",cardsBackground:"#202d36",headerBackground:"#2b3743",boxShadow:"0px 0px 7px 	#1f2c35"})
+          if(mode==="Light Mode"){
+
+            this.setState({theme:themes.dark})
+          }
       else{
-          this.setState({background:"white",textColor:"black",borderStyle:"outset",borderColor:"black",cardsBackground:"#fafafa",headerBackground:"white",boxShadow:"0px 0px 7px #f0f0eb"})
+          this.setState({theme:themes.light})
       }
       }
       handleSearchCounrty=(countryName)=>{
@@ -49,21 +53,21 @@ class Home extends Component {
           });
       }
     render() { 
-        
         return ( 
-          <div style={{background:this.state.background,color:this.state.textColor}} >
-            <Header changeMode={this.changeMode} background={this.state.headerBackground} />
-            <div style={{background:this.state.cardsBackground,padding:"1.7vw"}}>
-            <Searchfilter handleSearchCounrty={this.handleSearchCounrty} handleSearchCountryByRegion={this.handleSearchCountryByRegion} background={this.state.headerBackground}/>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gridRowGap:"2vw",gridColumnGap:"2vw" }}>
-            {this.countries()}
+          <ThemeContext.Provider value={this.state.theme}>
+                <div style={{background:this.state.theme.background,color:this.state.theme.textColor}} >
+                <Header changeMode={this.changeMode}/>
+                <div style={{background:this.state.theme.cardsBackground,padding:"1.7vw"}}>
+                <Searchfilter handleSearchCounrty={this.handleSearchCounrty} handleSearchCountryByRegion={this.handleSearchCountryByRegion} background={this.state.headerBackground}/>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gridRowGap:"2vw",gridColumnGap:"2vw" }}>
+                {this.countries()}
+                </div>
+                </div>
             </div>
-            </div>
-        </div>
+      </ThemeContext.Provider>
+        
         )
-          
             
     }
 }
- 
 export default Home;

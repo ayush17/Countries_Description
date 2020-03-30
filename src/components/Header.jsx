@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { WiSunrise } from "react-icons/wi";
+import {ThemeContext,themes} from './themeContext'
 class Header extends Component {
     state = { mode:"Light Mode" }
     changeMode=(mode)=>{
@@ -17,10 +18,17 @@ class Header extends Component {
     }
     render() { 
         return (
-             <div style={{padding:"2vw 0vw 1vw 0vw",display:"flex",justifyContent:"space-between",  boxShadow:"0px 0px 9px #f0f0eb" ,padding:"1.7vw",background:this.props.background} }>
+            <React.Fragment>
+            <ThemeContext.Consumer>
+              
+            {theme=>(<div style={{padding:"2vw 0vw 1vw 0vw",display:"flex",justifyContent:"space-between",  boxShadow:"0px 0px 9px #f0f0eb" ,padding:"1.7vw",background:theme.headerBackground} }>
             <span style={{fontWeight:"bold",fontSize:"1.5vw"}}>Where in the world?</span>
             <span style={{cursor:"pointer"}} onClick={()=>{this.changeMode(this.state.mode)}}> <WiSunrise/>&nbsp;{this.state.mode} </span>
-            </div>
+            </div>)
+
+            }
+            </ThemeContext.Consumer>
+            </React.Fragment>
          );
     }
 }

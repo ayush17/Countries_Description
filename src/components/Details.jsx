@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import Header from './Header'
 import CountryDetails from './countryDetails'
+import {ThemeContext,themes} from './themeContext'
 class Details extends Component {
-    state = { background:"white",textColor:"black",borderStyle:"outset",borderColor:"white" }
+    state = { theme:themes }
     changeMode =(mode)=>{
-        if(mode==="Light Mode")
-    this.setState({background:"black",textColor:"white",borderStyle:"outset",borderColor:"white",cardsBackground:"#202d36",headerBackground:"#2b3743",boxShadow:"0px 0px 7px 	#1f2c35"})
+        if(mode==="Light Mode"){
+
+          this.setState({theme:themes.dark})
+        }
     else{
-        this.setState({background:"white",textColor:"black",borderStyle:"outset",borderColor:"black",cardsBackground:"#fafafa",headerBackground:"white",boxShadow:"0px 0px 7px #f0f0eb"})
+        this.setState({theme:themes.light})
     }
     }
     render() { 
-        return ( <div style={{background:this.state.background,color:this.state.textColor}} >
-            <Header changeMode={this.changeMode} background={this.state.headerBackground} />
+        return ( <ThemeContext.Provider value={this.state.theme}>
+             <div style={{background:this.state.theme.background,color:this.state.theme.textColor}} >
+            <Header changeMode={this.changeMode}  />
             <div style={{background:this.state.cardsBackground,padding:"1.7vw 1.7vw 100vw 1.7vw", height:"100%"}}>
-            <CountryDetails capital={this.props.match.params.capital} color={this.state.textColor} background={this.state.headerBackground} />
+            <CountryDetails capital={this.props.match.params.capital} color={this.state.theme.textColor} background={this.state.theme.headerBackground} />
             
             </div>
-        </div>);
+        </div>
+        </ThemeContext.Provider>
+       );
     }
 }
  
