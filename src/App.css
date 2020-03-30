@@ -8,6 +8,7 @@ body{
   height: 40vmin;
   pointer-events: none;
 }
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

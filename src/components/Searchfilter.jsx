@@ -34,20 +34,20 @@ class Searchfilter extends Component {
               </Menu.Item>
             </Menu>
           );
-        return ( <div style={{padding:"0vw 4vw 0vw 4vw"}}>
-            <div style={{display:"flex",justifyContent:"space-between"}}>
+        return ( 
+            <div style={{display:"flex",justifyContent:"space-between",marginBottom:"1.5vw"}}>
             <Search
-            placeholder="input search text"
+            placeholder="Search for a country..."
             onSearch={value => this.props.handleSearchCounrty(value)}
-            style={{ width: 200 }}
+            style={{ width: 350,border:"none",borderRadius:"0.2vw" ,height:"2.5vw"}}
           />
-           <Dropdown overlay={menu}>
-      <Button>
+           <Dropdown overlay={menu} style={{ width: 350,border:"none" }}>
+      <Button style={{ border:"none"}}>
        Filter by Region <DownOutlined />
       </Button>
     </Dropdown>
     </div>
-          </div>);
+          );
     }
 }
  
